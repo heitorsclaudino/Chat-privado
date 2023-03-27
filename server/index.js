@@ -16,7 +16,11 @@ const io = new Server(server, {
 });
 
 io.on("connection", (socket) => {
-    
+    console.log(socket.id);
+
+    socket.on("disconnect", () => {
+        console.log(`O usuário com ID ${socket.id} saiu da sala.`)
+    })
 });
 
 server.listen(3001, () => console.log("Server running on port 3001."));
