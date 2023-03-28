@@ -17,11 +17,15 @@ const io = new Server(server, {
 
 io.on("connection", (socket) => {
     //Usuário conectado
-    console.log(`O usuário com ID: ${socket.id} entrou na sala.`);
+    console.log(`O usuário com ID: ${socket.id} se conectou.`);
 
-    socket.on("join_room", (data) => {
+    socket.on("join_room", (room) => {
         socket.join(data);
-        console.log(`Usuário com ID: ${socket.id} entrou na sala: ${data}.`)
+        console.log(`Usuário com ID: ${socket.id} entrou na sala: ${room}.`)
+    })
+
+    socket.on("send_message", (data) => {
+        socket.to(data.room).emit("receive_message", data);
     })
 
 
